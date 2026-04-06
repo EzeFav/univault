@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniVault Payment</title>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+</head>
+<body>
+    <script>
+        // Get parameters from URL
+        function getParam(name) {
+            var url = window.location.search;
+            var params = new URLSearchParams(url);
+            return params.get(name);
+        }
+
+        var email = getParam("email");
+        var amount = getParam("amount");
+        var ref = getParam("ref");
+
+        // Auto launch Paystack when page loads
+        window.onload = function() {
+            var handler = PaystackPop.setup({
+                key: "pk_test_YOUR_PUBLIC_KEY_HERE",
+                email: email,
+                amount: amount,
+                currency: "NGN",
+                ref: ref,
+                callback: function(response) {
+                    // Payment successful — redirect to success URL
+                    window.location.href = "https://yourgithubusername.github.io/univault/success.html?ref=" + response.reference;
+                },
+                onClose: function() {
+                    // Payment cancelled — redirect to cancel URL
+                    window.location.href = "https://yourgithubusername.github.io/univault/cancel.html";
+                }
+            });
+            handler.openIframe();
+        };
+    </script>
+</body>
+</html>
