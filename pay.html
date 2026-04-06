@@ -7,7 +7,6 @@
 </head>
 <body>
     <script>
-        // Get parameters from URL
         function getParam(name) {
             var url = window.location.search;
             var params = new URLSearchParams(url);
@@ -18,21 +17,18 @@
         var amount = getParam("amount");
         var ref = getParam("ref");
 
-        // Auto launch Paystack when page loads
         window.onload = function() {
             var handler = PaystackPop.setup({
-                key: "pk_test_YOUR_PUBLIC_KEY_HERE",
+                key: "pk_test_37de2bf6a99cf54bb6d916d3dd55fdd6eb90068e",
                 email: email,
                 amount: amount,
                 currency: "NGN",
                 ref: ref,
                 callback: function(response) {
-                    // Payment successful — redirect to success URL
-                    window.location.href = "https://yourgithubusername.github.io/univault/success.html?ref=" + response.reference;
+                    window.location.href = "https://EzeFav.github.io/univault/success.html?ref=" + response.reference;
                 },
                 onClose: function() {
-                    // Payment cancelled — redirect to cancel URL
-                    window.location.href = "https://yourgithubusername.github.io/univault/cancel.html";
+                    window.location.href = "https://EzeFav.github.io/univault/cancel.html";
                 }
             });
             handler.openIframe();
