@@ -16,14 +16,39 @@
         var email = getParam("email");
         var amount = getParam("amount");
         var ref = getParam("ref");
+        
+        // Grab all the extra data we attached to the URL in Sketchware
+        var uid = getParam("uid");
+        var type = getParam("type");
+        var universityId = getParam("universityId");
+        var departmentId = getParam("departmentId");
+        var level = getParam("level");
+        var semester = getParam("semester");
+        var academicYear = getParam("academicYear");
+        var courseCode = getParam("courseCode");
 
         window.onload = function() {
             var handler = PaystackPop.setup({
-                key: "pk_test_37de2bf6a99cf54bb6d916d3dd55fdd6eb90068e",
+                key: "pk_test_37de2bf6a99cf54bb6d916d3dd55fdd6eb90068e", // Remember to change this to your LIVE key later!
                 email: email,
                 amount: amount,
                 currency: "NGN",
                 ref: ref,
+                
+                // Pack the backpack so Paystack can send this to Render
+                metadata: {
+                    custom_fields: [
+                        { display_name: "UID", variable_name: "uid", value: uid },
+                        { display_name: "Type", variable_name: "type", value: type },
+                        { display_name: "University ID", variable_name: "universityId", value: universityId },
+                        { display_name: "Department ID", variable_name: "departmentId", value: departmentId },
+                        { display_name: "Level", variable_name: "level", value: level },
+                        { display_name: "Semester", variable_name: "semester", value: semester },
+                        { display_name: "Academic Year", variable_name: "academicYear", value: academicYear },
+                        { display_name: "Course Code", variable_name: "courseCode", value: courseCode }
+                    ]
+                },
+                
                 callback: function(response) {
                     window.location.href = "https://EzeFav.github.io/univault/success.html?ref=" + response.reference;
                 },
